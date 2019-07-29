@@ -1,0 +1,86 @@
+= Create an Ordering Processing Pipeline
+
+
+In this walkthrough you will create an end-to-end solution for processing
+Orders using the Red Hat Managed Integration.
+
+Red Hat Managed Integration is built on OpenShift Dedicated and includes Red
+Hat Agile Integration and Red Hat Open Application Runtimes as hosted managed
+services.
+
+The image below illustrates the architecture you will create throughout this
+walkthrough.
+
+image::images/architecture.png[integration, role="integr8ly-img-responsive"]
+
+The high-level flow in the architecture is described below:
+
+. Customer places an order via Order API.
+.. The API microservice is protected using Red Hat 3scale AMP
+.. A single `POST /order` endpoint is exposed
+.. Customers must include their API Key in requests
+. The API microservice forwards incoming orders to AMQ
+.. AMQ exposes a queue over an AMQP interface
+.. Orders are stored in the queue until Fuse Online can process them
+. Fuse Online will dequeue and process each message in services
+.. Processing a message involves writing it to PostreSQL
+.. Fuse Online will provide metrics for processing of messages
+. etc
+
+
+[time=5]
+== Explore the Project
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+
+[time=5]
+== Create an Orders Queue in AMQ Online
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+[time=15]
+== Develop and Deploy the Public Order API
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+[time=10]
+== Expose the Order API via 3scale
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+[time=15]
+== Create an Integration using Fuse Online
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+[time=15]
+== Expose an Internal Orders API using Fuse
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
+
+[time=10]
+== Deploy an in-house Mobility Solution with Realtime Sync
+
+=== Subtask Title
+
+. Do first step.
+. Do second step.
