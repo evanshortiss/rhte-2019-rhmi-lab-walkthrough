@@ -1,0 +1,24 @@
+{
+  "name": "rhte-2019-rhmi-lab-walkthrough",
+  "version": "0.1.0",
+  "private": true,
+  "description": "This repository contains a Solution Pattern that's compatible with the [Integreatly Solution Explorer](https://github.com/integr8ly/tutorial-web-app).",
+  "main": "index.js",
+  "scripts": {
+    "test": "iad -W error -d ./walkthroughs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evanshortiss/rhte-2019-rhmi-lab-walkthrough.git"
+  },
+  "keywords": [],
+  "author": "Evan Shortiss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/evanshortiss/rhte-2019-rhmi-lab-walkthrough/issues"
+  },
+  "homepage": "https://github.com/evanshortiss/rhte-2019-rhmi-lab-walkthrough#readme",
+  "devDependencies": {
+    "integreatly-asciidoc": "0.0.4"
+  }
+}

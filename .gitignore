@@ -1,7 +1,6 @@
 *.log
-
-# OS generated files #
-######################
+node_modules
+package-lock.json
 .DS_Store
 .DS_Store?
 ._*
