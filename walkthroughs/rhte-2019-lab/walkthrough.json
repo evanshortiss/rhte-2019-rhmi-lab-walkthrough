@@ -9,6 +9,22 @@
         "name": "fuse"
       }
     ],
-    "serviceInstances": []
+    "serviceInstances": [
+      {
+        "metadata": {
+          "name": "postgresql-persistent-template"
+        },
+        "spec": {
+          "clusterServiceClassExternalName": "postgresql-persistent-template",
+          "clusterServicePlanExternalName": "default",
+          "parameters": {
+            "DATABASE_SERVICE_NAME": "orders-postgresql",
+            "POSTGRESQL_USER": "{{ user-sanitized-username }}",
+            "POSTGRESQL_DATABASE": "orders",
+            "VOLUME_CAPACITY": "512Mi"
+          }
+        }
+      }
+    ]
   }
 }
