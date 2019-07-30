@@ -12,10 +12,10 @@
     "serviceInstances": [
       {
         "metadata": {
-          "name": "postgresql-persistent-template"
+          "name": "postgresql-persistent"
         },
         "spec": {
-          "clusterServiceClassExternalName": "postgresql-persistent-template",
+          "clusterServiceClassExternalName": "postgresql-persistent",
           "clusterServicePlanExternalName": "default",
           "parameters": {
             "DATABASE_SERVICE_NAME": "orders-postgresql",
