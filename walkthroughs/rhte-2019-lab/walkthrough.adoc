@@ -97,8 +97,9 @@ deployed into this *Project*. You will be using this database throughout this
 walkthrough.
 
 === Exploring the Project Namespce
-You will get familiar with the OpenShift Console *Overivew*,
-*Deployment Config*, *Deployment*, and *Secrets* screens in this section.
+You will get familiar with the *Overivew*,
+*Deployment Config*, *Deployment*, and *Secrets* screens from the OpenShift
+Console in this section.
 
 . Navigate to your link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project Overview, window="_blank"].
 . Find the PostgreSQL instance on the *Overview* screen and expand it using the arrow beside it.
@@ -109,24 +110,25 @@ You will get familiar with the OpenShift Console *Overivew*,
 . Expand the *Resources* item in the side menu and click *Secrets*.
 . Select `orders-postgresql` from the list to view the *Secret*. It contains
 the following keys and values:
-.. A `database-name` with the value `orders`
-.. A `database-user` with the value {user-sanitized-username}
-.. A `database-password` with a randomised set of 16 characters
+.. A `database-name` with the value `orders`.
+.. A `database-user` with the value `{user-sanitized-username}`.
+.. A `database-password` with set of 16 random characters.
 . If you return to the *Deployment* screen and open the *Evironment* tab you
 can see how this *Secret* is used to configure the container environment.
 
 
-=== Configure PostgresSQL
+=== Configure PostgreSQL
 . Navigate to your link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Project Overview, window="_blank"].
 . Expand the *Applications* section in the side menu and select *Pods*.
 . Select the *Pod* with the prefix `postgresql`.
 . Select the *Terminal* tab on the *Pod* overview screen. This will provide
 you with a shell that you can use to execute commands in the running
 PostgreSQL container.
-. Satrt a session with PostgreSQL by entering the `psql` command.
+. Start a session with PostgreSQL by entering the `psql` command.
 . Connect to the Orders database by entering the `\c orders;` command.
 +
-. Enter the following SQL statement to create the a table for the Orders API:
+. Enter the following SQL statement to create the a `received_orders` table
+that the requests sent to the Orders API will ultimately be written to:
 +
 [subs="attributes+"]
 ----
@@ -151,6 +153,14 @@ SQL statement exactly and issue it when connected to the `orders` database.
 
 [time=5]
 == Create an Orders Queue in AMQ Online
+Your order processing pipeline needs to be fault tolerant and scalable. Using
+the AMQ message broker facilitates loosely coupled, asynchronous communication
+between the microservices you deploy in this lab.
+
+For example, if Fuse Online or the PostgreSQL instance were to become
+temporarily unavailable it should not prevent a customer sending requests
+to the Order API. Using AMQ in this architecture enables you to rollout
+internal updates without affecting service availbility.
 
 . Open the link:{enmasse-url}[AMQ Online Console, window="_blank"]. Login
 if prompted to do so.
@@ -174,13 +184,113 @@ Ensure you followed each step in the procedure above. Refresh the AMQ
 Online UI to verify that it's not a connectivity or UI issue. If the queue does
 not appear follow the steps again or contact your administrator.
 
-[time=15]
-== Develop and Deploy the Public Order API
+[time=10]
+== Create an OpenAPI Spec for the Order API using Apicurito
 
-=== Subtask Title
+. Navigate to the link:{apicurio-url}[Apicurito Console, window="_blank", id="resources-apicurio-url"].
+. Step B
+. C
+. D
 
-. Do first step.
-. Do second step.
+[type=verification]
+====
+Did you successfully download a JSON or YAML API definition file?
+====
+
+[type=verificationFail]
+Ensure you followed each step in the procedure above. If the download is
+failing contact your administrator.
+
+[time=10]
+== Generate Code using the OpenAPI Spec
+
+To continue, you must have Node.js version 10 or later installed. The official
+link:https://nodejs.org/en/download/[Downloads Page] has installers and source
+code. Installation via link:https://github.com/nvm-sh/nvm[NVM] is popular on
+macOS and Linux.
+
+This section also requires the ODO command-line tool to be installed.
+Installing ODO is straightfoward. Download the binary for your system from
+the link:https://github.com/openshift/odo/releases[ODO releases page], add
+it to your path, and execute `chmod +x` on the binary.
+
+=== Java Developers (Spring): Connecting to AMQ
+Follow this section if you'd like to create a Spring application. If you'd
+rather use Node.js, scroll down to the next section.
+
+. Generate the boilerplate code for your Orders API by issuing the following command:
++
+[subs="attributes+"]
+----
+npx @openapitools/openapi-generator-cli@cli-4.0.3 generate -i $API_SPEC_FILE -g spring -o $LOCATION
+----
++
+. TODO: Steps for Java developers to connect to message queue.
+
+{empty} +
+
+Now that you've implemented the code to connect to the orders queue, you can
+deploy your application on OpenShift using ODO.
+
+. Run `mvn package` from the Spring project root directory. This generates a
+JAR file for Spring the application.
+. Login to the OpenShift Cluster using `odo login {openshift-host}`. You'll be
+prompted for your username and password.
+. Set the current ODO context to the *Porject* created for this lab by running
+`odo project set {walkthrough-namespace}`.
+. Run `odo create java orders-api --binary target/$YOUR_JAR_FILE`, replacing
+the `$YOUR_JAR_FILE` variable with the appropriate value.
+. Run `odo push` to push the configuration to the OpenShift Project. This will
+create a  *Service* and *Deployment* in your OpenShift *Project* to facilitate
+running your Java application.
+. Finally, run the `odo url create --port 8080` to expose your Spring
+application to via an OpenShift *Route*.
+. Use cURL or Postman to test your Spring API.
+
+[NOTE]
+====
+We'll delete this OpenShift Route later since we want to route incoming
+requests through the 3scale AMP on the cluster.
+====
+
+=== Node.js Developers (Node.js Express): Connecting to AMQ
+
+. Generate the boilerplate code for your Orders API by issuing the following
+command:
++
+[subs="attributes+"]
+----
+npx @openapitools/openapi-generator-cli@cli-4.0.3 generate -i $API_SPEC_FILE -g nodejs-server-deprecated -o $LOCATION
+----
++
+. TODO: Steps for Node.js developers to connect to message queue.
+
+Now that you've implemented the code to connect to the orders queue, you can
+deploy your application on OpenShift using ODO.
+
+. Login to the OpenShift Cluster using `odo login {openshift-host}`. You'll be
+prompted for your username and password.
+. Set the current ODO context to the *Porject* created for this lab by running
+`odo project set {walkthrough-namespace}`.
+. Run `odo create nodejs orders-api` to create the required configuration
+files.
+. Run `odo push` to push the configuration to the OpenShift Project. This will
+create a  *Service* and *Deployment* in your OpenShift *Project* to facilitate
+running your Java application.
+. Finally, run the `odo url create --port 8080` to expose your Spring
+application to via an OpenShift *Route*.
+. Use cURL or Postman to test your Spring API.
+
+[type=verification]
+====
+Is your Node.js or Java application listed on the link:{openshift-host}/console/project/{walkthrough-namespace}[OpenShift Overview]
+for your Project? Can you access it via the Route created?
+====
+
+[type=verificationFail]
+Ensure you followed each step in the procedure above. If the application is not
+listed delete the `.odo` directory in your Node.js or Java project root and
+retry the ODO commands. Contact and administrator if the problem persists.
 
 [time=10]
 == Expose the Order API via 3scale
