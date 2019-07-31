@@ -236,7 +236,7 @@ deploy your application on OpenShift using ODO.
 JAR file for Spring the application.
 . Login to the OpenShift Cluster using `odo login {openshift-host}`. You'll be
 prompted for your username and password.
-. Set the current ODO context to the *Porject* created for this lab by running
+. Set the current ODO context to the *Project* created for this lab by running
 `odo project set {walkthrough-namespace}`.
 . Run `odo create java orders-api --binary target/$YOUR_JAR_FILE`, replacing
 the `$YOUR_JAR_FILE` variable with the appropriate value.
@@ -270,7 +270,7 @@ deploy your application on OpenShift using ODO.
 
 . Login to the OpenShift Cluster using `odo login {openshift-host}`. You'll be
 prompted for your username and password.
-. Set the current ODO context to the *Porject* created for this lab by running
+. Set the current ODO context to the *Project* created for this lab by running
 `odo project set {walkthrough-namespace}`.
 . Run `odo create nodejs orders-api` to create the required configuration
 files.
