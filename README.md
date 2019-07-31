@@ -5,11 +5,26 @@ This repository contains a Solution Pattern that's compatible with the
 
 ## Local Development
 
+### Setup
+
+Setup requires installation of Node.js 10 or later. This enables a Git hook
+that verifies the asciidoc content and walkthrough config.
+
+```bash
+git clone https://github.com/evanshortiss/rhte-2019-rhmi-lab-walkthrough
+
+cd rhte-2019-rhmi-lab-walkthrough
+
+npm install
+```
+
+### Running the Server
+
 ```bash
 # Clone the Solution Explorer
 git clone https://github.com/integr8ly/tutorial-web-app
 
-# Clone this lab
+# Clone this lab in the same directory as the Solution Explorer
 git clone https://github.com/evanshortiss/rhte-2019-rhmi-lab-walkthrough
 
 # Set WALKTHROUGH_LOCATIONS variable the Solution Explorer needs
