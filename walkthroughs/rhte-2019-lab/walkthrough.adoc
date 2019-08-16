@@ -77,7 +77,7 @@ image::images/architecture.png[integration, role="integr8ly-img-responsive"]
 * link:https://developers.redhat.com/products/codeready-workspaces/overview/[Overview, window="_blank"]
 * link:https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces_for_openshift/1.0.0/[Documentation, window="_blank"]
 ****
-[type=walkthroughResource]
+[type=walkthroughResource,serviceName=3scale]
 .3Scale
 ****
 * link:https://{user-username}-admin.{openshift-app-host}[Console, window="_blank"]
