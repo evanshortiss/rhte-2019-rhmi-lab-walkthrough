@@ -48,7 +48,7 @@ image::images/architecture.png[integration, role="integr8ly-img-responsive"]
 * link:https://blog.openshift.com/[Openshift Blog, window="_blank"]
 ****
 
-[type=walkthroughResource,serviceName=apicurito]
+[type=walkthroughResource,serviceName=apicurio]
 .Apicurito
 ****
 * link:{apicurio-url}[Console, window="_blank", id="resources-apicurio-url"]
@@ -77,11 +77,10 @@ image::images/architecture.png[integration, role="integr8ly-img-responsive"]
 * link:https://developers.redhat.com/products/codeready-workspaces/overview/[Overview, window="_blank"]
 * link:https://access.redhat.com/documentation/en-us/red_hat_codeready_workspaces_for_openshift/1.0.0/[Documentation, window="_blank"]
 ****
-
-[type=walkthroughResource,serviceName=3scale]
+[type=walkthroughResource]
 .3Scale
 ****
-* link:{api-management-url}[Console, window="_blank"]
+* link:https://{user-username}-admin.{openshift-app-host}[Console, window="_blank"]
 * link:https://access.redhat.com/documentation/en-us/red_hat_3scale_api_management/2.5/[Documentation, window="_blank"]
 * link:https://www.redhat.com/en/technologies/jboss-middleware/3scale[Overview, window="_blank"]
 
@@ -264,6 +263,8 @@ npx @openapitools/openapi-generator-cli@cli-4.0.3 generate -i $API_SPEC_FILE -g 
 ----
 +
 . TODO: Steps for Node.js developers to connect to message queue.
+
+{empty} +
 
 Now that you've implemented the code to connect to the orders queue, you can
 deploy your application on OpenShift using ODO.
