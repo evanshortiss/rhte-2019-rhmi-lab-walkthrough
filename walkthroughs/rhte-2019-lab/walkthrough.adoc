@@ -3,7 +3,7 @@
 
 In this walkthrough you will create a simple end-to-end solution for processing
 Orders. Using the Red Hat Managed Integration we'll create a fault tolerant,
-message-oriented architceture (MOM) that's based on enterprise integration
+message-oriented architecture (MOM) that's based on enterprise integration
 patterns (EIP) and microservices. An image of the lab architecture is included
 below.
 
@@ -18,7 +18,7 @@ Cluster.
 The high-level flow in the architecture is described below:
 
 . Customer places an order via Order API:
-.. The API microservice is protected using Red Hat 3scale AMP.
+.. The API microservice is protected using Red Hat 3scale API Management.
 .. A single `POST /order` endpoint is exposed.
 .. Customers must include their API Key for requests to be validated.
 . The API microservice forwards incoming orders to AMQ:
@@ -32,10 +32,10 @@ The high-level flow in the architecture is described below:
 .. The `GET /orders` endpoint will return all orders in our system.
 .. The `POST /orders/{id}/processed` endpoint will mark an order as processed.
 . A Node.js application will provide a real-time dashboard that provides order performance metrics:
-.. WebSockets will be used to communicate with the Node.js backend for realtime information.
+.. WebSockets will be used to communicate with the Node.js backend for real-time information.
 .. Processed vs. unprocessed order counts will be displayed.
 . Red Hat Mobile Developer Services will be used to create a Data Synchronisation service:
-.. A Mobile/Web client will connect to the service and receive realtime updates.
+.. A Mobile/Web client will connect to the service and receive real-time updates.
 .. Employees will use the service to mark orders processed.
 
 image::images/architecture.png[integration, role="integr8ly-img-responsive"]
@@ -112,7 +112,7 @@ the following keys and values:
 .. A `database-name` with the value `orders`.
 .. A `database-user` with the value `{user-sanitized-username}`.
 .. A `database-password` with set of 16 random characters.
-. If you return to the *Deployment* screen and open the *Evironment* tab you
+. If you return to the *Deployment* screen and open the *Environment* tab you
 can see how this *Secret* is used to configure the container environment.
 
 
@@ -159,7 +159,7 @@ between the microservices you deploy in this lab.
 For example, if Fuse Online or the PostgreSQL instance were to become
 temporarily unavailable it should not prevent a customer sending requests
 to the Order API. Using AMQ in this architecture enables you to rollout
-internal updates without affecting service availbility.
+internal updates without affecting service availability.
 
 . Open the link:{enmasse-url}[AMQ Online Console, window="_blank"]. Login
 if prompted to do so.
@@ -209,7 +209,7 @@ code. Installation via link:https://github.com/nvm-sh/nvm[NVM] is popular on
 macOS and Linux.
 
 This section also requires the ODO command-line tool to be installed.
-Installing ODO is straightfoward. Download the binary for your system from
+Installing ODO is straightforward. Download the binary for your system from
 the link:https://github.com/openshift/odo/releases[ODO releases page], add
 it to your path, and execute `chmod +x` on the binary.
 
@@ -318,7 +318,7 @@ retry the ODO commands. Contact and administrator if the problem persists.
 . Do second step.
 
 [time=10]
-== Deploy an in-house Mobility Solution with Realtime Sync
+== Deploy an in-house Mobility Solution with Real-time Sync
 
 === Subtask Title
 
